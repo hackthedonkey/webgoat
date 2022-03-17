@@ -18,13 +18,13 @@ pipeline {
     stage('Building Image') {
       steps{    
           sh """
-            docker build -t harbor.lazydonkey.co.kr/webgoat/webgoat-8.0:v1 .
+            docker build -t harbor.lazydonkey.co.kr/webgoat/webgoat-8.0:v1.${env.BUILD_ID} .
             """    
       }
     }
     stage('Scan Local image') {
       steps {
-        neuvector registrySelection: 'Local', repository: 'harbor.lazydonkey.co.kr/webgoat/webgoat-8.0', scanLayers: false, standaloneScanner: true, tag: "v1"
+        neuvector registrySelection: 'Local', repository: 'harbor.lazydonkey.co.kr/webgoat/webgoat-8.0', scanLayers: false, standaloneScanner: true, tag: "v1.$BUILD_ID"
       }
     }
     stage('Docker Login') {
@@ -37,13 +37,13 @@ pipeline {
     stage('Docker Image Push') {
       steps{            
           sh """
-            docker push harbor.lazydonkey.co.kr/webgoat/webgoat-8.0:v1
+            docker push harbor.lazydonkey.co.kr/webgoat/webgoat-8.0:v1.${env.BUILD_ID}
             """
       }
     }
     stage('Scan image') {
       steps {
-        neuvector registrySelection: 'harbor', repository: 'webgoat/webgoat-8.0', scanLayers: false, tag: 'v1'
+        neuvector registrySelection: 'harbor', repository: 'webgoat/webgoat-8.0', scanLayers: false, tag: 'v1.$BUILD_ID'
       }
     }
   }
