@@ -24,7 +24,7 @@ pipeline {
     }
     stage('Scan Local image') {
       steps {
-        neuvector registrySelection: 'Local', repository: 'harbor.lazydonkey.co.kr/webgoat/webgoat-8.0', scanLayers: true, standaloneScanner: true, tag: "v1"
+        neuvector registrySelection: 'Local', repository: 'harbor.lazydonkey.co.kr/webgoat/webgoat-8.0', scanLayers: false, standaloneScanner: true, tag: "v1"
       }
     }
     stage('Docker Login') {
@@ -43,7 +43,7 @@ pipeline {
     }
     stage('Scan image') {
       steps {
-        neuvector registrySelection: 'harbor', repository: 'webgoat/webgoat-8.0', scanLayers: true, tag: 'v1'
+        neuvector registrySelection: 'harbor', repository: 'webgoat/webgoat-8.0', scanLayers: false, tag: 'v1'
       }
     }
   }
