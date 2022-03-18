@@ -4,7 +4,7 @@ RUN \
   apt-get update && apt-get install && \
   useradd --home-dir /home/webgoat --create-home -U webgoat
 
-COPY ./webgoat-server-8.2.2.jar /home/webgoat/webgoat.jar
+COPY ./webgoat-server-8.0.0.jar /home/webgoat/webgoat.jar
 
 USER webgoat
 RUN cd /home/webgoat/
