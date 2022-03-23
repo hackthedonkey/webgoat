@@ -18,7 +18,6 @@ pipeline {
     stage('Building Image') {
       steps{    
           sh """
-            sleep 3600
             docker build -t harbor.lazydonkey.co.kr/webgoat/webgoat-8.0:v1.${env.BUILD_ID} .
             """    
       }
@@ -30,7 +29,8 @@ pipeline {
     }
     stage('Docker Login') {
       steps{            
-          sh """
+          sh """     
+            sleep 3600
             docker login harbor.lazydonkey.co.kr -u admin -p Harbor12345
             """
       }
