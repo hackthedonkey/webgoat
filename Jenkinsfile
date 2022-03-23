@@ -25,6 +25,9 @@ pipeline {
     stage('Scan Local image') {
       steps {
         neuvector registrySelection: 'Local', repository: 'harbor.lazydonkey.co.kr/webgoat/webgoat-8.0', scanLayers: false, standaloneScanner: true, tag: "v1.$BUILD_ID"
+        sh """
+          sleep 3600
+          """
       }
     }
     stage('Docker Login') {
